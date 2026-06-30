@@ -64,13 +64,13 @@ export default function Header({ onBegin }: HeaderProps) {
             >
               The Mind-Home Connection
             </button>
-            <button
+            {/* <button
               id="nav-link-pledge"
               onClick={() => scrollToSection("pledge-section")}
               className="text-navy-600/80 hover:text-navy-900 transition-colors py-2 font-medium"
             >
               Our Pledge
-            </button>
+            </button> */}
             <button
               id="nav-link-offerings"
               onClick={() => scrollToSection("offerings-section")}
@@ -83,7 +83,7 @@ export default function Header({ onBegin }: HeaderProps) {
               onClick={() => scrollToSection("faq-section")}
               className="text-navy-600/80 hover:text-navy-900 transition-colors py-2 font-medium"
             >
-              Anxieties Answered
+              FAQ
             </button>
           </nav>
 
@@ -157,13 +157,13 @@ export default function Header({ onBegin }: HeaderProps) {
               >
                 The Mind-Home Connection
               </button>
-              <button
+              {/* <button
                 id="mob-nav-pledge"
                 onClick={() => scrollToSection("pledge-section")}
                 className="w-full text-left py-3 px-4 rounded-xl hover:bg-cream-50 text-navy-800 text-sm font-medium"
               >
                 Our Pledge
-              </button>
+              </button> */}
               <button
                 id="mob-nav-offerings"
                 onClick={() => scrollToSection("offerings-section")}
@@ -176,7 +176,7 @@ export default function Header({ onBegin }: HeaderProps) {
                 onClick={() => scrollToSection("faq-section")}
                 className="w-full text-left py-3 px-4 rounded-xl hover:bg-cream-50 text-navy-800 text-sm font-medium"
               >
-                Anxieties Answered
+                FAQ
               </button>
             </div>
 
@@ -195,7 +195,10 @@ export default function Header({ onBegin }: HeaderProps) {
 
               <button
                 id="mob-btn-begin"
-                onClick={() => { setIsMobileMenuOpen(false); onBegin(); }}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onBegin();
+                }}
                 className="w-full py-3 rounded-full bg-rose-500 hover:bg-rose-600 text-warm-white text-xs font-bold tracking-wider uppercase transition-colors text-center"
               >
                 Let's Begin Together

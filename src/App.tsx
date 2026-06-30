@@ -55,21 +55,22 @@ export default function App() {
       <MentalHealthSupport />
 
       {/* Interactive Feelings-first Guidance Widget */}
-      <div className="py-16 bg-cream-50/30 border-t border-b border-navy-100/10 px-4 sm:px-6 lg:px-8">
-        <InteractiveCompass onSelectService={handleSelectService} />
-      </div>
+      {/* <div className="min-h-screen flex items-center py-16 bg-cream-50/30 border-t border-b border-navy-100/10 px-4 sm:px-6 lg:px-8">
+        <div className="w-full">
+          <InteractiveCompass onSelectService={handleSelectService} />
+        </div>
+      </div> */}
 
       {/* The Judgment-Free Pledge Vows Section */}
       {/* <Pledge /> */}
 
+      {/* Before & After Gallery — client-consented transformations */}
+      <BeforeAfterGallery />
       {/* Service Offerings Care Packages */}
       <ServiceOfferings
         onSelectService={handleSelectService}
         onOpenIntake={handleOpenIntake}
       />
-
-      {/* Before & After Gallery — client-consented transformations */}
-      <BeforeAfterGallery />
 
       {/* Final CTA — Book Now */}
       <CTASection onBegin={() => handleOpenIntake()} />

@@ -58,12 +58,12 @@ export default function FAQ() {
   return (
     <section
       id="faq-section"
-      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-cream-50/70 relative overflow-hidden"
+      className="min-h-screen flex items-center py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-cream-50/70 relative overflow-hidden"
     >
       <div className="absolute top-1/4 left-0 w-80 h-80 rounded-full bg-rose-100/20 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-80 h-80 rounded-full bg-lavender-100/20 blur-3xl pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10 w-full">
         {/* Title block */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-semibold tracking-wider text-lavender-700 uppercase bg-lavender-50 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 border border-lavender-100">

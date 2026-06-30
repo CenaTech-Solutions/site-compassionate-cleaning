@@ -45,13 +45,13 @@ export default function MentalHealthSupport() {
   return (
     <section
       id="connection-section"
-      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
+      className="min-h-screen flex items-center py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
     >
       {/* Design accents - soft colored curved shapes */}
       <div className="absolute top-[-10%] left-[-5%] w-80 h-80 rounded-full bg-lavender-50 blur-3xl pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-5%] w-80 h-80 rounded-full bg-rose-50/70 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-semibold tracking-wider text-lavender-700 uppercase bg-lavender-50 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 border border-lavender-100">

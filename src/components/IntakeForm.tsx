@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Send,
@@ -15,6 +15,10 @@ import {
   MapPin,
   Flower,
   Calendar,
+  Paperclip,
+  Upload,
+  Image as ImageIcon,
+  X as XIcon,
 } from "lucide-react";
 import {
   ServiceType,
@@ -47,6 +51,10 @@ export default function IntakeForm({
     traumaInformed: true,
   });
 
+  const [attachments, setAttachments] = useState<File[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [submissions, setSubmissions] = useState<IntakeSubmission[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -77,6 +85,39 @@ export default function IntakeForm({
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData((prev) => ({ ...prev, [name]: checked }));
+  };
+
+  const addFiles = (incoming: FileList | null) => {
+    if (!incoming) return;
+    const valid = Array.from(incoming).filter(
+      (f) => f.size <= 10 * 1024 * 1024,
+    );
+    setAttachments((prev) => {
+      const combined = [...prev, ...valid];
+      return combined.slice(0, 5);
+    });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    addFiles(e.target.files);
+    e.target.value = "";
+  };
+
+  const removeAttachment = (index: number) => {
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => setIsDragging(false);
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    addFiles(e.dataTransfer.files);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -139,6 +180,7 @@ export default function IntakeForm({
         scentSensitive: false,
         traumaInformed: true,
       });
+      setAttachments([]);
     }, 1500);
   };
 
@@ -483,6 +525,100 @@ export default function IntakeForm({
                 placeholder="What feels heavy today? Which rooms need the most gentle focus? Is there any boundary or worry we should keep in mind? (Feel free to share as much or as little as you like)."
                 className="w-full pl-4 pr-4 py-3 bg-cream-50/50 border border-navy-100 rounded-xl text-navy-800 text-sm focus:outline-none focus:border-rose-400 focus:bg-white transition-all duration-300 resize-none"
               />
+            </div>
+
+            {/* Photo Attachments (Optional) */}
+            <div>
+              <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Paperclip className="w-3.5 h-3.5 text-rose-500" /> Share
+                Photos of Your Space
+                <span className="ml-1 font-normal normal-case text-navy-400 tracking-normal">
+                  (Optional)
+                </span>
+              </label>
+
+              {/* Drop zone */}
+              <div
+                role="button"
+                tabIndex={0}
+                aria-label="Upload photos of your space"
+                onKeyDown={(e) =>
+                  e.key === "Enter" && fileInputRef.current?.click()
+                }
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={`relative flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl p-6 text-center cursor-pointer select-none transition-all duration-300 ${
+                  isDragging
+                    ? "border-rose-400 bg-rose-50/60 scale-[1.01]"
+                    : "border-navy-100 bg-cream-50/30 hover:border-rose-300 hover:bg-rose-50/20"
+                }`}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept="image/*,.pdf"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    isDragging
+                      ? "bg-rose-100 text-rose-500"
+                      : "bg-cream-100 text-rose-400"
+                  }`}
+                >
+                  <Upload className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm text-navy-700">
+                    Drag photos here, or{" "}
+                    <span className="text-rose-500 font-semibold">
+                      click to browse
+                    </span>
+                  </p>
+                  <p className="text-[10px] text-navy-400 mt-0.5">
+                    JPG, PNG, or PDF &middot; Up to 5 files &middot; Max 10 MB
+                    each
+                  </p>
+                </div>
+              </div>
+
+              {/* Selected file list */}
+              {attachments.length > 0 && (
+                <ul className="mt-2.5 space-y-1.5">
+                  {attachments.map((file, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between bg-white/70 border border-navy-100/50 rounded-xl px-3 py-2 text-xs text-navy-700"
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
+                        <ImageIcon className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                        <span className="truncate">{file.name}</span>
+                        <span className="text-navy-400 shrink-0 font-mono">
+                          ({(file.size / 1024).toFixed(0)} KB)
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeAttachment(index)}
+                        aria-label={`Remove ${file.name}`}
+                        className="ml-3 text-navy-300 hover:text-rose-500 transition-colors shrink-0"
+                      >
+                        <XIcon className="w-3.5 h-3.5" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <p className="text-[10px] text-navy-400 mt-2 italic leading-relaxed">
+                Photos help us show up fully prepared for your space. They are
+                viewed only by your assigned care team and permanently deleted
+                after your visit.
+              </p>
             </div>
 
             {/* Submit */}

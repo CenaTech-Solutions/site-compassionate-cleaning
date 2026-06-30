@@ -1,5 +1,12 @@
 import { motion } from "motion/react";
-import { Flower, ArrowDown, Heart, ShieldCheck, Sparkles, Star } from "lucide-react";
+import {
+  Flower,
+  ArrowDown,
+  Heart,
+  ShieldCheck,
+  Sparkles,
+  Star,
+} from "lucide-react";
 import ownerImg from "@/assets/images/cc-bio-pic.webp";
 
 interface HeroProps {
@@ -12,7 +19,8 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 88;
-      const top = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+      const top =
+        element.getBoundingClientRect().top + window.scrollY - headerOffset;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
@@ -28,10 +36,8 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
       <div className="absolute top-[10%] left-[25%] w-32 h-32 rounded-full bg-white/40 blur-2xl pointer-events-none animate-pulse" />
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
-
         {/* ── Left column: text ── */}
         <div className="lg:col-span-7 text-left space-y-6 sm:space-y-8">
-
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,10 +65,13 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               className="text-navy-600/95 font-sans text-base sm:text-lg max-w-2xl leading-relaxed font-light"
             >
               Welcome to{" "}
-              <span className="font-semibold text-navy-800">Compassionate Cleaning</span>.
-              Whether you are living with mental health struggles, neurodivergent
-              executive exhaustion, a major transition, or physical limits, we clean
-              with care, dignity, and absolute zero judgment.
+              <span className="font-semibold text-navy-800">
+                Compassionate Cleaning
+              </span>
+              . Whether you are living with mental health struggles,
+              neurodivergent executive exhaustion, a major transition, or
+              physical limits, we clean with care, dignity, and absolute zero
+              judgment.
             </motion.p>
           </div>
 
@@ -99,23 +108,27 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             <div className="flex items-start gap-2.5">
               <ShieldCheck className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
               <div>
-                <span className="block text-xs font-semibold text-navy-800">Trauma-Informed & Safe</span>
+                <span className="block text-xs font-semibold text-navy-800">
+                  Trauma-Informed & Safe
+                </span>
                 <span className="block text-[11px] text-navy-500">
-                  Every member trained in empathy, quiet presence, and custom pace.
+                  Every member trained in empathy, quiet presence, and custom
+                  pace.
                 </span>
               </div>
             </div>
             <div className="flex items-start gap-2.5">
               <Heart className="w-5 h-5 text-lavender-500 shrink-0 mt-0.5" />
               <div>
-                <span className="block text-xs font-semibold text-navy-800">No Pre-Cleaning Expected</span>
+                <span className="block text-xs font-semibold text-navy-800">
+                  No Pre-Cleaning Expected
+                </span>
                 <span className="block text-[11px] text-navy-500">
                   No moralizing, no lecturing, and absolutely no shame.
                 </span>
               </div>
             </div>
           </motion.div>
-
         </div>
 
         {/* ── Right column: owner portrait ── */}
@@ -126,7 +139,6 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
           className="lg:col-span-5 flex justify-center items-center"
         >
           <div className="relative w-full max-w-md">
-
             {/* Soft glow behind the portrait */}
             <div className="absolute -inset-8 rounded-full bg-linear-to-br from-rose-200/50 to-lavender-200/40 blur-3xl pointer-events-none" />
 
@@ -137,7 +149,8 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             <div className="absolute -inset-1.5 rounded-[2.25rem] bg-white/80 pointer-events-none" />
 
             {/* Portrait frame */}
-            <div className="relative rounded-4xl overflow-hidden shadow-2xl shadow-navy-900/20 ring-1 ring-white/60"
+            <div
+              className="relative rounded-4xl overflow-hidden shadow-2xl shadow-navy-900/20 ring-1 ring-white/60"
               style={{ height: "660px" }}
             >
               <img
@@ -169,10 +182,15 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             >
               <span className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-rose-400 text-rose-400" />
+                  <Star
+                    key={i}
+                    className="w-3 h-3 fill-rose-400 text-rose-400"
+                  />
                 ))}
               </span>
-              <span className="text-[11px] font-semibold text-navy-700">5-star rated</span>
+              <span className="text-[11px] font-semibold text-navy-700">
+                5-star rated
+              </span>
             </motion.div>
 
             {/* Floating zero-judgment pill — bottom left */}
@@ -183,12 +201,12 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               className="absolute -bottom-4 -left-4 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-linear-to-r from-rose-50 to-lavender-50 shadow-xl border border-lavender-100/60 z-10"
             >
               <Sparkles className="w-3.5 h-3.5 text-lavender-500 shrink-0" />
-              <span className="text-[11px] font-semibold text-navy-700">Zero-judgment, always</span>
+              <span className="text-[11px] font-semibold text-navy-700">
+                Zero-judgment, always
+              </span>
             </motion.div>
-
           </div>
         </motion.div>
-
       </div>
 
       {/* Scroll indicator */}

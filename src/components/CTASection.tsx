@@ -13,14 +13,17 @@ interface CTASectionProps {
 
 export default function CTASection({ onBegin }: CTASectionProps) {
   const reassurances = [
-    { icon: <ShieldCheck className="w-4 h-4" />, label: "Fully Insured & Bonded" },
+    {
+      icon: <ShieldCheck className="w-4 h-4" />,
+      label: "Fully Insured & Bonded",
+    },
     { icon: <Clock className="w-4 h-4" />, label: "Response within 24 hours" },
     { icon: <Heart className="w-4 h-4" />, label: "Zero judgment, always" },
     { icon: <Sparkles className="w-4 h-4" />, label: "No prep required" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-linear-to-b from-navy-800 to-navy-950 py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen flex items-center relative overflow-hidden bg-linear-to-b from-navy-800 to-navy-950 py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
       {/* Background glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-2xl rounded-full bg-rose-500/8 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-[-10%] w-96 h-96 rounded-full bg-lavender-500/10 blur-3xl pointer-events-none" />
@@ -36,7 +39,7 @@ export default function CTASection({ onBegin }: CTASectionProps) {
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 max-w-4xl mx-auto text-center w-full">
         {/* Eyebrow tag */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
