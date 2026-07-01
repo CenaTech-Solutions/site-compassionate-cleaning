@@ -318,8 +318,8 @@ export default function IntakeForm({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-rose-500" /> Your
-                  Preferred Name
+                  <User className="w-3.5 h-3.5 text-rose-500" /> Your Preferred
+                  Name
                 </label>
                 <input
                   type="text"
@@ -334,8 +334,7 @@ export default function IntakeForm({
 
               <div>
                 <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-rose-500" /> Email
-                  Address
+                  <Mail className="w-3.5 h-3.5 text-rose-500" /> Email Address
                 </label>
                 <input
                   type="email"
@@ -374,9 +373,9 @@ export default function IntakeForm({
                   onChange={handleInputChange}
                   className="w-full pl-4 pr-4 py-3 bg-cream-50/50 border border-navy-100 rounded-xl text-navy-800 text-sm focus:outline-none focus:border-rose-400 focus:bg-white transition-all duration-300"
                 >
-                  <option value="email">Send a quiet Email first</option>
-                  <option value="text">A friendly Text Message</option>
-                  <option value="call">A gentle Phone Call</option>
+                  <option value="email">Email</option>
+                  <option value="text">Text Message</option>
+                  <option value="call">Phone Call</option>
                 </select>
               </div>
 
@@ -412,8 +411,8 @@ export default function IntakeForm({
 
               <div>
                 <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-rose-500" /> NYC
-                  Borough or Area
+                  <MapPin className="w-3.5 h-3.5 text-rose-500" /> NYC Borough
+                  or Area
                 </label>
                 <select
                   name="borough"
@@ -514,8 +513,8 @@ export default function IntakeForm({
             {/* Compassionate Message Box */}
             <div>
               <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-rose-500" /> Tell
-                us how we can support you
+                <MessageSquare className="w-3.5 h-3.5 text-rose-500" /> Tell us
+                how we can support you
               </label>
               <textarea
                 name="message"
@@ -530,8 +529,8 @@ export default function IntakeForm({
             {/* Photo Attachments (Optional) */}
             <div>
               <label className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                <Paperclip className="w-3.5 h-3.5 text-rose-500" /> Share
-                Photos of Your Space
+                <Paperclip className="w-3.5 h-3.5 text-rose-500" /> Share Photos
+                of Your Space
                 <span className="ml-1 font-normal normal-case text-navy-400 tracking-normal">
                   (Optional)
                 </span>
@@ -641,12 +640,12 @@ export default function IntakeForm({
                 >
                   {isSubmitting ? (
                     <>
-                      <Flower className="w-4 h-4 animate-spin" /> Preparing
-                      Care Plan...
+                      <Flower className="w-4 h-4 animate-spin" /> Preparing Care
+                      Plan...
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" /> Request Safe Support
+                      <Send className="w-4 h-4" /> Request Support
                     </>
                   )}
                 </button>
@@ -702,7 +701,10 @@ export default function IntakeForm({
 
               <button
                 id="btn-close-success"
-                onClick={() => { setShowSuccess(false); onClose?.(); }}
+                onClick={() => {
+                  setShowSuccess(false);
+                  onClose?.();
+                }}
                 className="w-full py-3 bg-navy-800 hover:bg-navy-950 text-warm-white rounded-full text-xs font-semibold tracking-wider uppercase transition-colors"
               >
                 Close with peace
