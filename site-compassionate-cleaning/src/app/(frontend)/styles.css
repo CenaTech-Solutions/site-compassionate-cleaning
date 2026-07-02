@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  --color-navy-950: #0d1624;
+  --color-navy-900: #131d31;
+  --color-navy-800: #1b2a47;
+  --color-navy-700: #2a3d5e;
+  --color-navy-600: #3c5277;
+
+  --color-rose-900: #542b2b;
+  --color-rose-700: #9e6464;
+  --color-rose-500: #c38e8e;
+  --color-rose-300: #dfbebe;
+  --color-rose-100: #f2e3e3;
+  --color-rose-50: #faf3f3;
+
+  --color-lavender-900: #42365a;
+  --color-lavender-700: #7b7095;
+  --color-lavender-500: #9c93b3;
+  --color-lavender-300: #c2bcd2;
+  --color-lavender-100: #e3e0ec;
+  --color-lavender-50: #f4f2f7;
+
+  --color-cream-950: #1e1911;
+  --color-cream-100: #f2ebdf;
+  --color-cream-50: #f7f3ed;
+
+  --color-warm-white: #fdfcfb;
+}
+
+/* Restore cursor: pointer on all buttons (removed by Tailwind Preflight) */
+button {
+  cursor: pointer;
+}
+
+/* Base style resets and customizations */
+body {
+  background-color: var(--color-cream-50);
+  color: var(--color-navy-900);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Fraunces: enable optical sizing so the opsz axis adjusts automatically per font-size */
+.font-serif {
+  font-optical-sizing: auto;
+}
+
+/* Plus Jakarta Sans: enable OpenType kerning and ligatures for crisp rendering */
+.font-sans,
+body {
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Custom scrollbar to match our soft theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-50);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-rose-300);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rose-500);
+}
+
+/* Custom frosted glass utility */
+.glass-panel {
+  background: rgba(253, 252, 251, 0.55);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel-heavy {
+  background: rgba(253, 252, 251, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel-dark {
+  background: rgba(27, 42, 71, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
