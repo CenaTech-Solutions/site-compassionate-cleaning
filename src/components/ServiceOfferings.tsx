@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+'use client'
+
 import {
   Sparkles,
   Calendar,
@@ -6,88 +7,49 @@ import {
   Layers,
   HeartHandshake,
   CheckCircle2,
+  type LucideIcon,
 } from "lucide-react";
-import { ServiceType } from "../types";
+import { ServiceType } from "@/types";
+import type { OfferingsBlock, ServiceItem } from "@/cms-types";
 
 interface ServiceOfferingsProps {
+  data: OfferingsBlock;
   onSelectService: (service: ServiceType) => void;
   onOpenIntake: (service: ServiceType) => void;
 }
 
+const SERVICE_ICON_MAP: Record<string, LucideIcon> = {
+  coffee: Coffee,
+  calendar: Calendar,
+  layers: Layers,
+  "heart-handshake": HeartHandshake,
+};
+
+const SERVICE_ICON_COLOR_MAP: Record<string, string> = {
+  coffee: "text-rose-600",
+  calendar: "text-lavender-600",
+  layers: "text-rose-600",
+  "heart-handshake": "text-lavender-600",
+};
+
 export default function ServiceOfferings({
+  data,
   onSelectService,
   onOpenIntake,
 }: ServiceOfferingsProps) {
-  const services = [
-    {
-      id: "gentle-reset" as ServiceType,
-      icon: <Coffee className="w-5 h-5 text-rose-600" />,
-      title: "Gentle Reset Care",
-      subtitle: "First Breath of Fresh Air",
-      description:
-        "Designed specifically for spaces that have piled up during depressive cycles, severe burnout, or intense life storms.",
-      features: [
-        "Quiet, non-judgmental initial evaluation",
-        "Dishes washed, dried, and neatly stacked",
-        "Clearing primary walking paths for basic safety",
-        "Hygienic bathroom and kitchen disinfection",
-        "Garbage and recycling removal",
-      ],
-      vibe: "Warm, slow-paced, safety-first support",
-    },
-    {
-      id: "maintenance" as ServiceType,
-      icon: <Calendar className="w-5 h-5 text-lavender-600" />,
-      title: "Maintenance & Comfort",
-      subtitle: "Predictable Rhythmic Support",
-      description:
-        "For chronic illness, long work hours, or daily executive dysfunction where maintaining the baseline is the hardest struggle.",
-      features: [
-        "Regular, recurring scheduled visits",
-        "Surfaces dusted, vacuumed, and mopped",
-        "Linen replacement & bed-making",
-        "Pantry & fridge maintenance checks",
-        "Tidying living rooms and resting zones",
-      ],
-      vibe: "Predictable, gentle routine",
-    },
-    {
-      id: "deep-transition" as ServiceType,
-      icon: <Layers className="w-5 h-5 text-rose-600" />,
-      title: "Deep Transition Reset",
-      subtitle: "Fresh Canvas, Fresh Pages",
-      description:
-        "A thorough room-by-room renewal following major life events: grieving, divorce, new babies, or recovery periods.",
-      features: [
-        "Dusting high fixtures, vents, and baseboards",
-        "Thorough kitchen appliances clean (inside/out)",
-        "Deep scrub of bathrooms & tile grout",
-        "Window sills, frames, and glass detail",
-        "Deep rug vacuuming and floor treatment",
-      ],
-      vibe: "Complete environmental renewal",
-    },
-    {
-      id: "neurodivergent" as ServiceType,
-      icon: <HeartHandshake className="w-5 h-5 text-lavender-600" />,
-      title: "Neurodivergent & ADHD Support",
-      subtitle: "Designed for Unique Brains",
-      description:
-        "Cleaning coupled with executive function support. We don't force neurotypical systems; we adapt to how your mind runs.",
-      features: [
-        "Body-doubling (cleaning collaboratively with you)",
-        "Quiet presence (using headphones or minimal noise)",
-        "Dignified sorting: 'Keep', 'Relocate', 'Donate'",
-        "No forced labeling: custom categorizing",
-        "Sensory-friendly, unscented eco-cleaning",
-      ],
-      vibe: "Accommodating, neuro-affirming, sensory-aware",
-    },
-  ];
-
-  const handleSelect = (serviceType: ServiceType) => {
-    onSelectService(serviceType);
-    onOpenIntake(serviceType);
+  const handleSelect = (serviceSlug: string) => {
+    const validSlugs: ServiceType[] = [
+      "gentle-reset",
+      "maintenance",
+      "deep-transition",
+      "neurodivergent",
+      "custom-care",
+    ];
+    const slug = validSlugs.includes(serviceSlug as ServiceType)
+      ? (serviceSlug as ServiceType)
+      : "gentle-reset";
+    onSelectService(slug);
+    onOpenIntake(slug);
   };
 
   return (
@@ -102,94 +64,94 @@ export default function ServiceOfferings({
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-semibold tracking-wider text-rose-700 uppercase bg-rose-50 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 border border-rose-100">
-            <Sparkles className="w-3.5 h-3.5" /> Gentle Frameworks
+            <Sparkles className="w-3.5 h-3.5" /> {data.sectionLabel}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-navy-800 font-medium mt-4 leading-tight">
-            Support that honors your energy
+            {data.headline}
           </h2>
           <p className="text-navy-600/80 text-sm sm:text-base mt-4 leading-relaxed font-light">
-            We don't believe in rigid lists or checklists that ignore the human
-            in the room. Our care models represent starting points—each one is
-            fully tailorable to your mood, pace, and comfort.
+            {data.description}
           </p>
         </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="bg-cream-50/30 rounded-3xl p-6 sm:p-8 border border-navy-100/10 shadow-xs flex flex-col justify-between hover:bg-cream-50/60 hover:shadow-sm hover:border-rose-200/50 transition-all duration-300"
-            >
-              <div>
-                {/* Badge Icon Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-xs text-navy-800">
-                    {service.icon}
-                  </div>
-                  <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-lavender-700 bg-lavender-50 px-3 py-1 rounded-full border border-lavender-100/40">
-                    {service.vibe}
-                  </span>
-                </div>
-
-                <h3 className="font-serif text-xl sm:text-2xl text-navy-800 font-semibold mb-1">
-                  {service.title}
-                </h3>
-                <span className="block text-xs font-medium text-rose-700/90 mb-4">
-                  {service.subtitle}
-                </span>
-
-                <p className="text-navy-600/90 text-sm leading-relaxed mb-6 font-light">
-                  {service.description}
-                </p>
-
-                {/* Features Checklist */}
-                <div className="space-y-3 mb-8">
-                  <span className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-2">
-                    What this can cover:
-                  </span>
-                  {service.features.map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-2.5 text-xs sm:text-sm text-navy-700"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                      <span className="font-light">{feature}</span>
+          {(data.services ?? []).map((service: ServiceItem) => {
+            const IconComponent = SERVICE_ICON_MAP[service.iconType] ?? Coffee;
+            const iconColor = SERVICE_ICON_COLOR_MAP[service.iconType] ?? "text-rose-600";
+            return (
+              <div
+                key={service.id}
+                className="bg-cream-50/30 rounded-3xl p-6 sm:p-8 border border-navy-100/10 shadow-xs flex flex-col justify-between hover:bg-cream-50/60 hover:shadow-sm hover:border-rose-200/50 transition-all duration-300"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-xs text-navy-800">
+                      <IconComponent className={`w-5 h-5 ${iconColor}`} />
                     </div>
-                  ))}
+                    {service.vibe && (
+                      <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-lavender-700 bg-lavender-50 px-3 py-1 rounded-full border border-lavender-100/40">
+                        {service.vibe}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="font-serif text-xl sm:text-2xl text-navy-800 font-semibold mb-1">
+                    {service.title}
+                  </h3>
+                  {service.subtitle && (
+                    <span className="block text-xs font-medium text-rose-700/90 mb-4">
+                      {service.subtitle}
+                    </span>
+                  )}
+
+                  <p className="text-navy-600/90 text-sm leading-relaxed mb-6 font-light">
+                    {service.description}
+                  </p>
+
+                  {(service.features ?? []).length > 0 && (
+                    <div className="space-y-3 mb-8">
+                      <span className="block text-xs font-bold text-navy-800 uppercase tracking-wider mb-2">
+                        What this can cover:
+                      </span>
+                      {(service.features ?? [] as { feature: string }[]).map((f, idx) => (
+                        <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-navy-700">
+                          <CheckCircle2 className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                          <span className="font-light">{f.feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-6 border-t border-navy-100/15">
+                  <button
+                    id={`btn-service-select-${service.serviceSlug}`}
+                    onClick={() => handleSelect(service.serviceSlug)}
+                    className="w-full py-3.5 rounded-full bg-navy-800 hover:bg-navy-950 text-warm-white text-xs font-bold tracking-wider uppercase transition-colors text-center shadow-xs"
+                  >
+                    Select & Request {service.title}
+                  </button>
                 </div>
               </div>
-
-              {/* Action Button */}
-              <div className="pt-6 border-t border-navy-100/15">
-                <button
-                  id={`btn-service-select-${service.id}`}
-                  onClick={() => handleSelect(service.id)}
-                  className="w-full py-3.5 rounded-full bg-navy-800 hover:bg-navy-950 text-warm-white text-xs font-bold tracking-wider uppercase transition-colors text-center shadow-xs"
-                >
-                  Select & Request {service.title}
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Custom Care box */}
         <div className="mt-12 bg-rose-50/40 rounded-3xl p-6 sm:p-8 border border-rose-100/50 text-center max-w-4xl mx-auto">
           <h3 className="font-serif text-xl text-navy-800 font-medium">
-            Don't see exactly what you need?
+            {data.customCareTitle}
           </h3>
           <p className="text-navy-600/80 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
-            Our most popular care plan is simply **Bespoke Custom Care**. Let us
-            know which boundaries or requirements feel safest for you, and we
-            will construct a visit that respects your terms.
+            {data.customCareDescription}
           </p>
           <button
             id="btn-select-custom-care"
             onClick={() => handleSelect("custom-care")}
             className="mt-5 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 text-warm-white text-xs font-semibold tracking-wider uppercase transition-colors"
           >
-            Design a custom care plan
+            {data.customCareButtonText}
           </button>
         </div>
       </div>

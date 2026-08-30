@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -25,7 +27,7 @@ import {
   ContactMethod,
   BoroughType,
   IntakeSubmission,
-} from "../types";
+} from "@/types";
 
 interface IntakeFormProps {
   selectedService: ServiceType;
@@ -235,7 +237,7 @@ export default function IntakeForm({
             </h3>
 
             <p className="text-rose-100/80 text-sm leading-relaxed mb-6">
-              When you submit this form, you are sharing your space’s needs with
+              When you submit this form, you are sharing your space's needs with
               a small, compassionate group of trained professionals. We protect
               your story with absolute confidentiality.
             </p>

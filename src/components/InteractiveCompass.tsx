@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -5,10 +7,9 @@ import {
   Smile,
   ShieldCheck,
   HeartHandshake,
-  HelpCircle,
   ArrowRight,
 } from "lucide-react";
-import { FeelingOption, ServiceType } from "../types";
+import { FeelingOption, ServiceType } from "@/types";
 
 interface InteractiveCompassProps {
   onSelectService: (service: ServiceType) => void;
@@ -46,7 +47,7 @@ export default function InteractiveCompass({
       recommendation: {
         title: "Maintenance Care & Comfort",
         description:
-          "Consistent, predictable cleaning visits that maintain your home’s clarity so you can prioritize your physical wellness and recovery.",
+          "Consistent, predictable cleaning visits that maintain your home's clarity so you can prioritize your physical wellness and recovery.",
         serviceType: "maintenance",
       },
     },
@@ -70,7 +71,7 @@ export default function InteractiveCompass({
       emoji: "🩹",
       label: "Anxious or Ashamed of My Space",
       message:
-        "Many of our clients haven’t let anyone into their homes for months—or years—out of fear of judgment. We hear you, and we see your incredible courage.",
+        "Many of our clients haven't let anyone into their homes for months—or years—out of fear of judgment. We hear you, and we see your incredible courage.",
       validation:
         "Our professionals are trained in trauma-informed care. We do not gossip, we do not take shaming before/after photos, and we do not lecture. We only care.",
       recommendation: {
@@ -85,7 +86,7 @@ export default function InteractiveCompass({
       emoji: "✨",
       label: "Neurodivergent / ADHD Fatigue",
       message:
-        "Standard organization guides assume everyone’s brain works the same. When executive function runs dry, organizing systems feel like a hostile maze.",
+        "Standard organization guides assume everyone's brain works the same. When executive function runs dry, organizing systems feel like a hostile maze.",
       validation:
         "We work with your brain, not against it. We support body-doubling (cleaning side-by-side) or can work quietly while you wear noise-cancelling headphones.",
       recommendation: {
@@ -101,7 +102,6 @@ export default function InteractiveCompass({
 
   const handleRecommendClick = (serviceType: ServiceType) => {
     onSelectService(serviceType);
-    // Smooth scroll to intake form
     const formElement = document.getElementById("intake-section");
     if (formElement) {
       formElement.scrollIntoView({ behavior: "smooth" });
@@ -171,7 +171,6 @@ export default function InteractiveCompass({
                 transition={{ duration: 0.3 }}
                 className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/60 shadow-sm flex flex-col justify-between h-full relative"
               >
-                {/* Floating soft glowing backdrop */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-rose-50/30 to-lavender-50/30 rounded-3xl -z-10" />
 
                 <div>

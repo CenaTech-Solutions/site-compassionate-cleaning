@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from "motion/react";
 import {
   Flower,
@@ -7,14 +9,27 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import ownerImg from "@/assets/images/cc-bio-pic.webp";
+import type { HeroBlock, MediaDoc } from "@/cms-types";
 
 interface HeroProps {
   onExploreSupport: () => void;
   onBegin: () => void;
+  data: HeroBlock;
 }
 
-export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
+function resolveImageUrl(field: MediaDoc | string | number | null | undefined): string {
+  if (!field) return "/images/cc-bio-pic.webp";
+  if (typeof field === "object" && "url" in field && field.url) return field.url;
+  return "/images/cc-bio-pic.webp";
+}
+
+function resolveImageAlt(field: MediaDoc | string | number | null | undefined): string {
+  if (!field) return "Founder of Compassionate Cleaning";
+  if (typeof field === "object" && "alt" in field) return field.alt;
+  return "Founder of Compassionate Cleaning";
+}
+
+export default function Hero({ onExploreSupport, onBegin, data }: HeroProps) {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -24,6 +39,9 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
+
+  const founderSrc = resolveImageUrl(data.founderImage);
+  const founderAlt = resolveImageAlt(data.founderImage);
 
   return (
     <section
@@ -45,7 +63,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-700 font-medium text-xs tracking-wider uppercase"
           >
             <Flower className="w-4.5 h-4.5 text-rose-500 fill-rose-300" />
-            Judgment-Free Support
+            {data.eyebrowLabel}
           </motion.div>
 
           <div className="space-y-4">
@@ -55,7 +73,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-serif text-4xl sm:text-5xl lg:text-6xl text-navy-800 font-medium tracking-tight leading-[1.1]"
             >
-              Your worth is not measured by the state of your home.
+              {data.headline}
             </motion.h1>
 
             <motion.p
@@ -68,10 +86,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               <span className="font-semibold text-navy-800">
                 Compassionate Cleaning
               </span>
-              . Whether you are living with mental health struggles,
-              neurodivergent executive exhaustion, a major transition, or
-              physical limits, we clean with care, dignity, and absolute zero
-              judgment.
+              . {data.description}
             </motion.p>
           </div>
 
@@ -86,7 +101,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               onClick={onBegin}
               className="px-8 py-4 rounded-full bg-rose-500 hover:bg-rose-600 text-warm-white text-sm font-bold tracking-wide transition-all duration-300 shadow-md hover:shadow-lg text-center cursor-pointer"
             >
-              Request a Gentle Visit
+              {data.primaryButtonText}
             </button>
 
             <button
@@ -94,7 +109,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               onClick={onExploreSupport}
               className="px-8 py-4 rounded-full bg-white/70 hover:bg-white text-navy-800 text-sm font-semibold tracking-wide border border-navy-100/50 hover:border-rose-200/60 transition-all duration-300 text-center shadow-xs cursor-pointer"
             >
-              How we support you
+              {data.secondaryButtonText}
             </button>
           </motion.div>
 
@@ -109,11 +124,10 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               <ShieldCheck className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
               <div>
                 <span className="block text-xs font-semibold text-navy-800">
-                  Trauma-Informed & Safe
+                  {data.badge1Title}
                 </span>
                 <span className="block text-[11px] text-navy-500">
-                  Every member trained in empathy, quiet presence, and custom
-                  pace.
+                  {data.badge1Description}
                 </span>
               </div>
             </div>
@@ -121,10 +135,10 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
               <Heart className="w-5 h-5 text-lavender-500 shrink-0 mt-0.5" />
               <div>
                 <span className="block text-xs font-semibold text-navy-800">
-                  No Pre-Cleaning Expected
+                  {data.badge2Title}
                 </span>
                 <span className="block text-[11px] text-navy-500">
-                  No moralizing, no lecturing, and absolutely no shame.
+                  {data.badge2Description}
                 </span>
               </div>
             </div>
@@ -139,41 +153,31 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
           className="lg:col-span-5 flex justify-center items-center"
         >
           <div className="relative w-full max-w-md">
-            {/* Soft glow behind the portrait */}
             <div className="absolute -inset-8 rounded-full bg-linear-to-br from-rose-200/50 to-lavender-200/40 blur-3xl pointer-events-none" />
-
-            {/* Decorative rotated backing card */}
             <div className="absolute -inset-3 rounded-[2.5rem] bg-linear-to-br from-rose-200/70 via-lavender-100/60 to-rose-100/50 -rotate-3 pointer-events-none" />
-
-            {/* Thin white spacer ring */}
             <div className="absolute -inset-1.5 rounded-[2.25rem] bg-white/80 pointer-events-none" />
 
-            {/* Portrait frame */}
             <div
               className="relative rounded-4xl overflow-hidden shadow-2xl shadow-navy-900/20 ring-1 ring-white/60"
               style={{ height: "660px" }}
             >
               <img
-                src={ownerImg}
-                alt="Founder of Compassionate Cleaning"
+                src={founderSrc}
+                alt={founderAlt}
                 className="w-full h-full object-cover object-top"
               />
-
-              {/* Bottom gradient for caption legibility */}
               <div className="absolute inset-0 bg-linear-to-t from-navy-900/65 via-navy-900/10 to-transparent pointer-events-none" />
-
-              {/* Frosted caption */}
               <div className="absolute bottom-0 left-0 right-0 px-5 py-5">
                 <p className="font-serif text-warm-white text-lg font-medium leading-snug drop-shadow">
-                  A human who <em>gets it</em> — here to help, never to judge.
+                  {data.founderCaption}
                 </p>
                 <span className="mt-1.5 inline-block text-[11px] tracking-widest uppercase font-semibold text-rose-200/90">
-                  Founder & Lead Cleaner
+                  {data.founderTitle}
                 </span>
               </div>
             </div>
 
-            {/* Floating 5-star badge — top right */}
+            {/* Floating 5-star badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -182,18 +186,15 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             >
               <span className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3 h-3 fill-rose-400 text-rose-400"
-                  />
+                  <Star key={i} className="w-3 h-3 fill-rose-400 text-rose-400" />
                 ))}
               </span>
               <span className="text-[11px] font-semibold text-navy-700">
-                5-star rated
+                {data.starRatingLabel}
               </span>
             </motion.div>
 
-            {/* Floating zero-judgment pill — bottom left */}
+            {/* Floating zero-judgment pill */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -202,7 +203,7 @@ export default function Hero({ onExploreSupport, onBegin }: HeroProps) {
             >
               <Sparkles className="w-3.5 h-3.5 text-lavender-500 shrink-0" />
               <span className="text-[11px] font-semibold text-navy-700">
-                Zero-judgment, always
+                {data.zeroJudgmentLabel}
               </span>
             </motion.div>
           </div>

@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from 'motion/react';
-import { ShieldAlert, Image, CalendarClock, MessageCircle, ShieldCheck } from 'lucide-react';
+import { ShieldAlert, CalendarClock, MessageCircle, ShieldCheck } from 'lucide-react';
 
 export default function Pledge() {
   const vows = [
@@ -10,7 +12,13 @@ export default function Pledge() {
       description: "We protect your privacy with the same rigor as medical confidentiality. We do not discuss your space with friends, family, neighbors, or online. Your home, your situation, and your struggle remain private."
     },
     {
-      icon: <Image className="w-5 h-5 text-rose-500" />,
+      icon: (
+        <svg className="w-5 h-5 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      ),
       title: "No Before/After Shaming Photos",
       tagline: "Your vulnerability is not marketing material",
       description: "Many cleaning companies post dramatic 'clutter transformations' on social media for viral clicks. We strictly forbid our team from taking photos of your space, unless you explicitly request them for your personal tracking."

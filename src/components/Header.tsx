@@ -1,14 +1,23 @@
+'use client'
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Heart, Shield, PhoneCall, HelpCircle } from "lucide-react";
+import { Menu, X, Heart, PhoneCall } from "lucide-react";
+import type { SiteSettingsData } from "@/cms-types";
 
 interface HeaderProps {
   onBegin: () => void;
+  siteSettings: SiteSettingsData;
 }
 
-export default function Header({ onBegin }: HeaderProps) {
+export default function Header({ onBegin, siteSettings }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const brandName = siteSettings.brandName || "Compassionate Cleaning";
+  const tagline = siteSettings.tagline || "Care • Dignity • Mental Wellness";
+  const phone = siteSettings.phone || "(917) 555-0143";
+  const phoneTel = siteSettings.phoneTel || "9175550143";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,10 +56,10 @@ export default function Header({ onBegin }: HeaderProps) {
             </div>
             <div>
               <span className="font-serif font-bold text-base sm:text-lg text-navy-800 block tracking-tight">
-                Compassionate Cleaning
+                {brandName}
               </span>
               <span className="text-[9px] font-mono tracking-wider text-rose-700 uppercase block font-semibold">
-                Care • Dignity • Mental Wellness
+                {tagline}
               </span>
             </div>
           </button>
@@ -64,13 +73,6 @@ export default function Header({ onBegin }: HeaderProps) {
             >
               The Mind-Home Connection
             </button>
-            {/* <button
-              id="nav-link-pledge"
-              onClick={() => scrollToSection("pledge-section")}
-              className="text-navy-600/80 hover:text-navy-900 transition-colors py-2 font-medium"
-            >
-              Our Pledge
-            </button> */}
             <button
               id="nav-link-offerings"
               onClick={() => scrollToSection("offerings-section")}
@@ -90,7 +92,7 @@ export default function Header({ onBegin }: HeaderProps) {
           {/* Call to action & Hotline */}
           <div className="hidden lg:flex items-center gap-5">
             <a
-              href="tel:9175550143"
+              href={`tel:${phoneTel}`}
               className="flex items-center gap-2 text-xs font-mono font-semibold text-navy-700 hover:text-rose-600 transition-colors"
             >
               <div className="w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center text-rose-600">
@@ -101,7 +103,7 @@ export default function Header({ onBegin }: HeaderProps) {
                   Talk or Text
                 </span>
                 <span className="block text-sm font-bold text-navy-800">
-                  (917) 555-0143
+                  {phone}
                 </span>
               </div>
             </a>
@@ -118,7 +120,7 @@ export default function Header({ onBegin }: HeaderProps) {
           {/* Mobile Menu Trigger */}
           <div className="lg:hidden flex items-center gap-3">
             <a
-              href="tel:9175550143"
+              href={`tel:${phoneTel}`}
               className="w-9 h-9 rounded-full bg-cream-100 flex items-center justify-center text-rose-600"
               title="Call or Text"
             >
@@ -140,7 +142,7 @@ export default function Header({ onBegin }: HeaderProps) {
         </div>
       </div>
 
-      {/* Mobile Drawer (Smooth Dropdown) */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -157,13 +159,6 @@ export default function Header({ onBegin }: HeaderProps) {
               >
                 The Mind-Home Connection
               </button>
-              {/* <button
-                id="mob-nav-pledge"
-                onClick={() => scrollToSection("pledge-section")}
-                className="w-full text-left py-3 px-4 rounded-xl hover:bg-cream-50 text-navy-800 text-sm font-medium"
-              >
-                Our Pledge
-              </button> */}
               <button
                 id="mob-nav-offerings"
                 onClick={() => scrollToSection("offerings-section")}
@@ -186,10 +181,10 @@ export default function Header({ onBegin }: HeaderProps) {
                   Call, Text, or WhatsApp
                 </span>
                 <a
-                  href="tel:9175550143"
+                  href={`tel:${phoneTel}`}
                   className="block text-lg font-bold text-navy-800 mt-1"
                 >
-                  (917) 555-0143
+                  {phone}
                 </a>
               </div>
 

@@ -1,6 +1,0 @@
-{
-  "name": "Compassionate Cleaning",
-  "description": "A judgment-free cleaning service landing page built around care, dignity, mental wellness, and support for overlooked communities.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
